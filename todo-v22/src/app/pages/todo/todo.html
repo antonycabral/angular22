@@ -1,0 +1,20 @@
+<main class="container">
+  <h1>Minhas Tarefas (Angular Moderno)</h1>
+
+  <ul class="task-list">
+    @for (tarefa of tarefas(); track tarefa.id) {
+      <li [class.completed]="tarefa.concluida">
+        <span (click)="alternarStatus(tarefa.id)">
+          {{ tarefa.titulo }}
+        </span>
+        <button (click)="alternarStatus(tarefa.id)">
+          {{ tarefa.concluida ? 'Desfazer' : 'Concluir' }}
+        </button>
+      </li>
+    } @empty {
+      <li class="empty-state">
+        Parabéns! Nenhuma tarefa pendente na lista.
+      </li>
+    }
+  </ul>
+</main>
