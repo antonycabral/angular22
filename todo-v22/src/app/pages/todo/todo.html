@@ -13,9 +13,9 @@
       Adicionar
     </button>
   </div>
-
+  
+<!-- Renderização com @for e otimização de track -->
   <ul class="task-list">
-    <!-- Renderização moderna com @for e o track obrigatório -->
     @for (tarefa of tarefas(); track tarefa.id) {
       <li [class.completed]="tarefa.concluida">
         <span (click)="alternarStatus(tarefa.id)">
@@ -24,9 +24,9 @@
         <button class="btn-delete" (click)="removerTarefa(tarefa.id)">Remover</button>
       </li>
     } @empty {
-      <!-- Bloco @empty nativo do Angular 22: executado quando a lista está vazia -->
+      <!-- Bloco @empty nativo do Angular 22: elimina condicionais @if extras para arrays vazios -->
       <li class="empty-state">
-        Parabéns! Nenhuma tarefa pendente na lista.
+        🎉 Parabéns! Nenhuma tarefa pendente na lista.
       </li>
     }
   </ul>
