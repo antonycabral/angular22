@@ -54,6 +54,39 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
+## O que foi implementado
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Este projeto TodoV22 demonstra as novas funcionalidades do Angular 22, incluindo:
+
+### Sinais (Signals) e Control Flow
+- Utilização de `signal` para estado reativo em vez de observables tradicionais
+- `@for` loop com otimização `track` para renderização eficiente de listas
+- `@empty` block nativo que elimina a necessidade de conditionais `@if` extras para arrays vazios
+
+### Componentes e Interfaces
+- Interface `Tarefa` com `id`, `titulo` e `concluida`
+- Sinais reativos para gerenciamento de lista de tarefas
+- Eventos de clique para alternar status e remover tarefas
+
+### Funcionalidades
+- Adicionar novas tarefas com timestamp único como ID
+- Alternar status concluído/incompleto de tarefas
+- Remover tarefas da lista
+- Estado inicial com 3 tarefas de exemplo sobre a arquitetura Angular 22
+
+### Tecnologias Utilizadas
+- Angular 22 com Signals-First approach
+- Zoneless change detection (configurado no angular.json)
+- Vitest para testes unitários
+- StyleScss com componentes isolados
+
+## Avaliação
+
+Este projeto serve como um estudo prático da nova arquitetura Angular 22, focada em:
+- **Performance**: Sinais proporcionam mudanças de estado mais eficientes sem zone change detection
+- **Developer Experience**: O `@for` loop com `track` oferece renderização otimizada e o `@empty` block simplifica o código condicional
+- **Modernidade**: Eliminação progressiva de patterns legados em favor do novo modelo de sinais
+
+O aplicativo demonstra como construir uma aplicação completa utilizando apenas as novas features do Angular 22, desde o estado reativo até a renderização de lista, proporcionando uma base sólida para migração de aplicações Angular legadas.
+
+Para mais detalhes sobre o código implementado, consulte os arquivos `todo.ts` e `todo.html` na pasta `src/app/pages/todo/`.
