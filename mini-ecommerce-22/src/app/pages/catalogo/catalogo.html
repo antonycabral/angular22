@@ -1,0 +1,66 @@
+<main class="catalogo-container">
+  <header class="topbar">
+    <a class="marca" href="/" aria-label="Norte, página inicial">
+      <span class="marca-simbolo" aria-hidden="true">N</span>
+      <span>NORTE<span class="marca-ponto">.</span></span>
+    </a>
+    <span class="topbar-nota">TECNOLOGIA PARA O COTIDIANO</span>
+    <span class="topbar-status"><span></span> Loja conceito</span>
+  </header>
+
+  <section class="apresentacao" aria-labelledby="titulo-principal">
+    <div class="apresentacao-texto">
+      <p class="sobretitulo">CURADORIA  /  2026</p>
+      <h1 id="titulo-principal">Menos ruído.<br /><em>Mais presença.</em></h1>
+      <p class="apresentacao-resumo">
+        Tecnologia bem escolhida para acompanhar seu ritmo, do primeiro café ao último projeto.
+      </p>
+    </div>
+    <div class="apresentacao-selo" aria-label="Seleção de produtos independentes">
+      <span>ESCOLHAS</span>
+      <strong>01—04</strong>
+      <span>FEITAS PARA DURAR</span>
+    </div>
+  </section>
+
+  <section class="secao-produtos" aria-labelledby="titulo-produtos">
+    <div class="cabecalho-produtos">
+      <div>
+        <p class="sobretitulo">A SELEÇÃO</p>
+        <h2 id="titulo-produtos">Peças em destaque</h2>
+      </div>
+      <app-filtro-busca
+        [(termoBusca)]="termoDigitado"
+        placeholderTexto="Busque por produto ou categoria"
+        (aoPesquisar)="executarBusca($event)"
+      />
+    </div>
+
+    <ul class="produto-lista">
+      @for (produto of produtosFiltrados(); track produto.id) {
+        <li class="produto-item">
+          <div class="produto-imagem">
+            <img [src]="produto.imagem" [alt]="produto.nome" loading="lazy" />
+            <span class="produto-categoria">{{ produto.categoria }}</span>
+          </div>
+          <div class="produto-info">
+            <h3>{{ produto.nome }}</h3>
+            <span>{{ formatadorMoeda.format(produto.preco) }}</span>
+          </div>
+        </li>
+      } @empty {
+        <li class="estado-vazio">
+          <span class="estado-vazio-marca" aria-hidden="true">?</span>
+          <h3>Nenhum produto encontrado</h3>
+          <p>Experimente buscar por outro nome ou categoria.</p>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <footer class="rodape">
+    <span>NORTE STUDIO</span>
+    <span>OBJETOS PARA UMA VIDA CONECTADA</span>
+    <span>2026</span>
+  </footer>
+</main>

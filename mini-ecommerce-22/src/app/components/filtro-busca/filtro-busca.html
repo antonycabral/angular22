@@ -1,0 +1,14 @@
+<form class="filtro-container" role="search" (submit)="pesquisar($event)">
+  <label class="visually-hidden" for="busca-produtos">Buscar produtos</label>
+  <input
+    id="busca-produtos"
+    #campoBusca
+    type="search"
+    [value]="termoBusca()"
+    (input)="atualizarTermo(campoBusca.value)"
+    [placeholder]="placeholderTexto()"
+  />
+  <button type="submit" aria-label="Aplicar busca" title="Buscar">
+    <span aria-hidden="true">⌕</span>
+  </button>
+</form>

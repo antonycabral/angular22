@@ -21,6 +21,7 @@ Este repositório contém o plano de estudo estruturado para as novas funcionali
 - Eventos `@Output`
 - Injeção de dependências com `inject()`
 - Aplicar os três conceitos principais
+- Implementação: `mini-ecommerce-22/`
 
 ## [Semana 2] Formulários Estáveis, Arquitetura Funcional e Testes
 

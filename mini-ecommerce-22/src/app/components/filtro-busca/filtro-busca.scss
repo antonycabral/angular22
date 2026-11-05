@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  width: min(100%, 28rem);
+}
+
+.filtro-container {
+  display: flex;
+  min-height: 3.25rem;
+  gap: 0.5rem;
+  padding: 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+input {
+  width: 100%;
+  min-width: 0;
+  padding: 0 0.75rem;
+  border: 0;
+  outline: 0;
+  color: var(--ink);
+  background: transparent;
+}
+
+input:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: -2px;
+}
+
+button {
+  display: grid;
+  width: 2.5rem;
+  flex: 0 0 2.5rem;
+  place-items: center;
+  border: 0;
+  border-radius: 4px;
+  color: white;
+  background: var(--forest);
+  cursor: pointer;
+}
+
+button span {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
