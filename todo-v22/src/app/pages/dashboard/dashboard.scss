@@ -1,0 +1,184 @@
+$primary-color: #6366f1;
+$primary-hover: #4f46e5;
+$bg-color: #0f172a;
+$card-bg: #1e293b;
+$text-color: #f8fafc;
+$text-muted: #94a3b8;
+$danger-color: #ef4444;
+$success-color: #22c55e;
+
+:host {
+  display: block;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: $bg-color;
+  color: $text-color;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.dashboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: $card-bg;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+
+  h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    color: #f1f5f9;
+  }
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  .card {
+    background-color: #0f172a;
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    text-align: center;
+
+    h3 {
+      font-size: 0.875rem;
+      color: $text-muted;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    &.entrada p { color: $success-color; }
+    &.saida p { color: $danger-color; }
+    &.saldo.negativo p { color: $danger-color; }
+  }
+}
+
+.meta-section {
+  background-color: #0f172a;
+  padding: 1.25rem;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  margin-bottom: 2rem;
+
+  h3 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: $text-muted;
+  }
+
+  .progress-bar-container {
+    background-color: #334155;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+
+    .progress-bar {
+      background-color: $primary-color;
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+  }
+
+  span {
+    font-size: 0.875rem;
+    color: $text-muted;
+  }
+}
+
+.form-group {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+
+  input, select {
+    flex: 1;
+    min-width: 150px;
+    padding: 0.75rem 1rem;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: $text-color;
+    outline: none;
+
+    &:focus {
+      border-color: $primary-color;
+    }
+  }
+
+  button {
+    padding: 0.75rem 1.25rem;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: $primary-hover;
+    }
+  }
+}
+
+.transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+
+    &.item-entrada { border-left: 4px solid $success-color; }
+    &.item-saida { border-left: 4px solid $danger-color; }
+
+    strong {
+      font-size: 1rem;
+    }
+
+    button {
+      background: transparent;
+      color: $text-muted;
+      border: none;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: $danger-color;
+      }
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 2rem;
+    border: 2px dashed #334155;
+    color: $text-muted;
+    font-style: italic;
+    justify-content: center;
+  }
+}

@@ -1,1 +1,53 @@
-<p>dashboard works!</p>
+<main class="dashboard-container">
+  <h1>Dashboard Financeiro (Angular 22)</h1>
+
+  <!-- Resumo com Estados Derivados -->
+  <div class="metrics-grid">
+    <div class="card entrada">
+      <h3>Entradas</h3>
+      <p>R$ {{ totalEntradas() }}</p>
+    </div>
+    <div class="card saida">
+      <h3>Saídas</h3>
+      <p>R$ {{ totalSaidas() }}</p>
+    </div>
+    <div class="card saldo" [class.negativo]="saldoTotal() < 0">
+      <h3>Saldo Total</h3>
+      <p>R$ {{ saldoTotal() }}</p>
+    </div>
+  </div>
+
+  <!-- Progresso de Metas -->
+  <div class="meta-section">
+    <h3>Progresso da Meta de Economia (Meta: R$ {{ metaEconomia() }})</h3>
+    <div class="progress-bar-container">
+      <div class="progress-bar" [style.width.%]="progressoMeta()"></div>
+    </div>
+    <span>{{ progressoMeta() }}% alcançado</span>
+  </div>
+
+  <!-- Formulário de Adição -->
+  <div class="form-group">
+    <input type="text" #desc placeholder="Descrição" />
+    <input type="number" #val placeholder="Valor (R$)" />
+    <select #tipo>
+      <option value="entrada">Entrada</option>
+      <option value="saida">Saída</option>
+    </select>
+    <button (click)="adicionarTransacao(desc.value, val.value, tipo.value); desc.value=''; val.value=''">
+      Adicionar Transação
+    </button>
+  </div>
+
+  <ul class="transaction-list">
+    @for (t of transacoes(); track t.id) {
+      <li [class.item-entrada]="t.tipo === 'entrada'" [class.item-saida]="t.tipo === 'saida'">
+        <span>{{ t.descricao }}</span>
+        <strong>R$ {{ t.valor }}</strong>
+        <button (click)="removerTransacao(t.id)">Excluir</button>
+      </li>
+    } @empty {
+      <li class="empty-state">Nenhuma transação registrada.</li>
+    }
+  </ul>
+</main>

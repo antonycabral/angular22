@@ -1,4 +1,5 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, computed, effect, inject, PLATFORM_ID, signal } from '@angular/core';
 
 interface Transacao {
   id: number;
@@ -14,6 +15,8 @@ interface Transacao {
   templateUrl: './dashboard.html',
 })
 export class Dashboard {
+  private readonly platformId = inject(PLATFORM_ID);
+
   // 1. O Produtor de Estado (Signal base)
   transacoes = signal<Transacao[]>([
     { id: 1, descricao: 'Salário', valor: 5000, tipo: 'entrada' },
@@ -50,25 +53,53 @@ export class Dashboard {
     // Sincroniza o estado com o localStorage de forma reativa e segura
     effect(() => {
       const dados = this.transacoes();
+      if (!isPlatformBrowser(this.platformId)) return;
+
       localStorage.setItem('transacoes_financeiras', JSON.stringify(dados));
+      console.log('Bloco 2 - [Dashboard] Transações persistidas no localStorage:', dados);
     });
   }
 
   // Métodos de Ação
-  adicionarTransacao(descricao: string, valor: string, tipo: 'entrada' | 'saida') {
-    if (!descricao || !valor) return;
+  adicionarTransacao(descricao: string, valor: string, tipo: string): void {
+    console.log('Bloco 2 -[Dashboard] Tentativa de adicionar transação:', { descricao, valor, tipo });
+
+    const valorNumerico = Number(valor);
+    if (!descricao.trim() || !Number.isFinite(valorNumerico) || valorNumerico <= 0 || !['entrada', 'saida'].includes(tipo)) {
+      console.log('[Dashboard] Transação rejeitada: dados inválidos.');
+      return;
+    }
 
     const novaTransacao: Transacao = {
       id: Date.now(),
-      descricao,
-      valor: parseFloat(valor),
-      tipo
+      descricao: descricao.trim(),
+      valor: valorNumerico,
+      tipo: tipo as 'entrada' | 'saida'
     };
 
     this.transacoes.update(lista => [novaTransacao, ...lista]);
+    console.log('Bloco 2 -[Dashboard] Transação adicionada:', novaTransacao);
+    this.registrarResumo();
   }
 
-  removerTransacao(id: number) {
+  removerTransacao(id: number): void {
+    const transacaoRemovida = this.transacoes().find(transacao => transacao.id === id);
+    if (!transacaoRemovida) {
+      console.log('Bloco 2 -[Dashboard] Nenhuma transação encontrada para remoção:', { id });
+      return;
+    }
+
     this.transacoes.update(lista => lista.filter(t => t.id !== id));
+    console.log('Bloco 2 -[Dashboard] Transação removida:', transacaoRemovida);
+    this.registrarResumo();
+  }
+
+  private registrarResumo(): void {
+    console.log('Bloco 2 -[Dashboard] Resumo atualizado:', {
+      totalEntradas: this.totalEntradas(),
+      totalSaidas: this.totalSaidas(),
+      saldoTotal: this.saldoTotal(),
+      progressoMeta: this.progressoMeta()
+    });
   }
 }
